@@ -1,79 +1,62 @@
 #include "Sala.hpp"
 
-// Implementação dos metodos da classe Iluminacao
-void Iluminacao :: definirLigado(bool estado) {
+// Implementação dos métodos da classe base Dispositivo
+void Dispositivo::definirLigado(bool estado) {
     this->estado = estado;
     if (estado) {
-    std::cout << "Luzes ligadas." << std::endl;
+        std::cout << "Dispositivo ligado." << std::endl;
     } else {
-        std::cout << "Luzes desligadas." << std::endl;
+        std::cout << "Dispositivo desligado." << std::endl;
     }
 }
 
-void Iluminacao :: ajustarBrilho(float nivel) {
+// Implementação dos métodos da classe Iluminacao
+void Iluminacao::controlar(float nivel) {
     this->nivel = nivel;
-    std::cout << "Brilho ajustado para " << nivel << "%" << std::endl;
+    std::cout << "Brilho controlado para " << nivel << "%" << std::endl;
 }
 
-// Implementação dos metodos da classe ArCondicionado
-void ArCondicionado :: definirLigado(bool estado) {
-    this->estado = estado;
-    if (estado) {
-    std::cout <<  "Ar condicionado ligado." << std::endl;
-    } else {
-        std::cout <<  "Ar condicionado desligado." << std::endl;
-}
-}
-
-void ArCondicionado :: ajustarTemperatura(double temp) {
+// Implementação dos métodos da classe ArCondicionado
+void ArCondicionado::controlar(float temp) {
     this->temperatura = temp;
-    std::cout << "Temperatura ajustada para " << temp << " graus Celsius." << std::endl;
+    std::cout << "Temperatura controlada para " << temp << " graus Celsius." << std::endl;
 }
 
-// Implementação dos metodos da classe Televisao
-void Televisao :: definirLigado(bool estado) {
-    this->estado = estado;
-    if (estado) {
-    std::cout <<  "TV ligada." << std::endl;
-    } else {
-        std::cout <<  "TV desligada." << std::endl;
-    }
-}
-
-void Televisao :: ajustarVolume(float nivel) {
+// Implementação dos métodos da classe Televisao
+void Televisao::controlar(float nivel) {
     this->volume = nivel;
-    std::cout << "Volume ajustado para " << nivel << std::endl;
+    std::cout << "Volume controlado para " << nivel << std::endl;
 }
 
-void Televisao :: ajustarCanal(int canal) {
+void Televisao::controlarCanal(int canal) {
     this->canal = canal;
-    std::cout << "Canal ajustado para " << canal << std::endl;
+    std::cout << "Canal controlado para " << canal << std::endl;
 }
 
-// Implementação dos metodos da classe AutomacaoSala
-void AutomacaoSala ::controlarIluminacao(bool estado, int brilho) {
+// Implementação dos métodos da classe AutomacaoSala
+void AutomacaoSala::controlarIluminacao(bool estado, float brilho) {
     if (estado) {
         iluminacao.definirLigado(true);
-        iluminacao.ajustarBrilho(brilho);
+        iluminacao.controlar(brilho);
     } else {
         iluminacao.definirLigado(false);
     }
 }
 
-void AutomacaoSala :: controlarArCondicionado(bool estado, float temperatura){
+void AutomacaoSala::controlarArCondicionado(bool estado, float temperatura) {
     if (estado) {
         arCondicionado.definirLigado(true);
-        arCondicionado.ajustarTemperatura(temperatura);
+        arCondicionado.controlar(temperatura);
     } else {
         arCondicionado.definirLigado(false);
     }
 }
 
-void AutomacaoSala :: controlarTelevisao(bool estado, float volume = 1.0f, int canal) {
+void AutomacaoSala::controlarTelevisao(bool estado, float volume, int canal) {
     if (estado) {
         televisao.definirLigado(true);
-        televisao.ajustarVolume(volume);
-        televisao.ajustarCanal(canal);
+        televisao.controlar(volume);
+        televisao.controlarCanal(canal);
     } else {
         televisao.definirLigado(false);
     }

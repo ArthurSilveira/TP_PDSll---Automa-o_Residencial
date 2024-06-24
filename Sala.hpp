@@ -4,36 +4,39 @@
 #include <iostream>
 #include <string>
 
-// Classe para controlar a iluminação
-class Iluminacao {
-private:
+// Classe base para dispositivos
+class Dispositivo {
+protected:
     bool estado = false;
+public:
+    virtual void definirLigado(bool estado);
+    virtual void controlar(float nivel) = 0; // Método puramente virtual
+};
+
+// Classe para controlar a iluminação
+class Iluminacao : public Dispositivo {
+private:
     float nivel;
 public:
-    void definirLigado(bool estado);
-    void ajustarBrilho(float nivel);
+    void controlar(float nivel) override;
 };
 
 // Classe para controlar o ar condicionado
-class ArCondicionado {
+class ArCondicionado : public Dispositivo {
 private:
-    bool estado = false;
     double temperatura;
 public:
-    void definirLigado(bool estado);
-    void ajustarTemperatura(double temp);
+    void controlar(float temp) override;
 };
 
 // Classe para controlar a televisão
-class Televisao {
+class Televisao : public Dispositivo {
 private:
-    bool estado = false;
     float volume;
     int canal;
 public:
-    void definirLigado(bool estado);
-    void ajustarVolume(float nivel);
-    void ajustarCanal(int canal);
+    void controlar(float nivel) override;
+    void controlarCanal(int canal);
 };
 
 // Classe principal para gerenciar a automatização da sala de estar
@@ -44,9 +47,9 @@ private:
     Televisao televisao;
 
 public:
-    void controlarIluminacao(bool estado, int brilho);
+    void controlarIluminacao(bool estado, float brilho);
     void controlarArCondicionado(bool estado, float temperatura);
-    void controlarTelevisao(bool estado, float volume = 1.0f, int canal);
+    void controlarTelevisao(bool estado, float volume = 1.0f, int canal = 1);
 };
 
 #endif // AUTOMACAO_SALA_HPP
