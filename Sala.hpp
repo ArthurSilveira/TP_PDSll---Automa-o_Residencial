@@ -1,42 +1,40 @@
+Sala.hpp
 #ifndef AUTOMACAO_SALA_HPP
 #define AUTOMACAO_SALA_HPP
 
 #include <iostream>
 #include <string>
 
-// Classe base para dispositivos
-class Dispositivo {
-protected:
-    bool estado = false;
-public:
-    virtual void definirLigado(bool estado);
-    virtual void controlar(float nivel) = 0; // Método puramente virtual
-};
-
 // Classe para controlar a iluminação
-class Iluminacao : public Dispositivo {
+class Iluminacao {
 private:
+    bool estado = false;
     float nivel;
 public:
-    void controlar(float nivel) override;
+    void definirLigado(bool estado);
+    void ajustarBrilho(float nivel);
 };
 
 // Classe para controlar o ar condicionado
-class ArCondicionado : public Dispositivo {
+class ArCondicionado {
 private:
+    bool estado = false;
     double temperatura;
 public:
-    void controlar(float temp) override;
+    void definirLigado(bool estado);
+    void ajustarTemperatura(double temp);
 };
 
 // Classe para controlar a televisão
-class Televisao : public Dispositivo {
+class Televisao {
 private:
+    bool estado = false;
     float volume;
     int canal;
 public:
-    void controlar(float nivel) override;
-    void controlarCanal(int canal);
+    void definirLigado(bool estado);
+    void ajustarVolume(float nivel);
+    void ajustarCanal(int canal);
 };
 
 // Classe principal para gerenciar a automatização da sala de estar
@@ -47,9 +45,9 @@ private:
     Televisao televisao;
 
 public:
-    void controlarIluminacao(bool estado, float brilho);
+    void controlarIluminacao(bool estado, int brilho);
     void controlarArCondicionado(bool estado, float temperatura);
-    void controlarTelevisao(bool estado, float volume = 1.0f, int canal = 1);
+    void controlarTelevisao(bool estado, float volume = 1.0f, int canal = 0);
 };
 
 #endif // AUTOMACAO_SALA_HPP
