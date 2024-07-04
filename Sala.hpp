@@ -1,4 +1,3 @@
-Sala.hpp
 #ifndef AUTOMACAO_SALA_HPP
 #define AUTOMACAO_SALA_HPP
 
