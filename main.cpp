@@ -1,8 +1,8 @@
-#include "Sala.hpp"
-
+#include "AutomacaoSala.hpp"
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <limits>
 
 using namespace std;
 
@@ -17,6 +17,15 @@ void informacoes() {
     cout << "Nesse caso nao eh necessario informar nada alem do comando de desligamento" << endl;
     cout << endl;
     cout << "Para encerrar o programa, digite SAIR" << endl;
+}
+
+bool isInputValid(stringstream& ss) {
+    if (ss.fail() || !ss.eof()) {
+        ss.clear();
+        ss.ignore(numeric_limits<streamsize>::max(), '\n');
+        return false;
+    }
+    return true;
 }
 
 int main() {
@@ -43,15 +52,15 @@ int main() {
         } else if (acao == "LUZ") {
             int brilho;
             ss >> brilho;
-            if (ss.fail() || brilho < 0 || brilho > 100) {
+            if (!isInputValid(ss) || brilho < 0 || brilho > 100) {
                 cout << "Nivel de brilho invalido. Por favor, tente novamente." << endl;
                 continue;
             }
             sala.controlarIluminacao(true, brilho);
         } else if (acao == "AR") {
-            double temperatura;
+            float temperatura;
             ss >> temperatura;
-            if (ss.fail()) {
+            if (!isInputValid(ss)) {
                 cout << "Temperatura invalida. Por favor, tente novamente." << endl;
                 continue;
             }
@@ -60,7 +69,7 @@ int main() {
             float volume;
             int canal;
             ss >> volume >> canal;
-            if (ss.fail()) {
+            if (!isInputValid(ss)) {
                 cout << "Volume ou canal invalido. Por favor, tente novamente." << endl;
                 continue;
             }
@@ -78,4 +87,3 @@ int main() {
 
     return 0;
 }
-
